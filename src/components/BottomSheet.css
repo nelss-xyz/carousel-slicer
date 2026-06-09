@@ -1,0 +1,144 @@
+/* ── Overlay ─────────────────────────────────────────────────────── */
+
+.bottomsheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: overlay-in 0.25s ease-out forwards;
+}
+
+.bottomsheet-overlay.bottomsheet-overlay--exit {
+  animation: overlay-out 0.25s ease-in forwards;
+}
+
+/* ── Sheet ───────────────────────────────────────────────────────── */
+
+.bottomsheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  padding: 1.25rem 1.5rem calc(env(safe-area-inset-bottom, 0.75rem) + 0.75rem);
+  border-radius: 20px 20px 0 0;
+  font-family: 'Inter', sans-serif;
+
+  background: #1a1a1a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+
+  animation: sheet-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.bottomsheet.bottomsheet--exit {
+  animation: sheet-out 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+/* ── Handle ──────────────────────────────────────────────────────── */
+
+.bottomsheet__handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+/* ── Icon ────────────────────────────────────────────────────────── */
+
+.bottomsheet__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.bottomsheet--error .bottomsheet__icon {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.bottomsheet--success .bottomsheet__icon {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+/* ── Message ─────────────────────────────────────────────────────── */
+
+.bottomsheet__message {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  line-height: 1.55;
+  max-width: 320px;
+}
+
+/* ── Dismiss Button ──────────────────────────────────────────────── */
+
+.bottomsheet__dismiss {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  border-radius: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  transition: background 0.2s, color 0.2s;
+}
+
+.bottomsheet__dismiss:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.bottomsheet__dismiss:active {
+  transform: scale(0.98);
+}
+
+/* ── Keyframes ───────────────────────────────────────────────────── */
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheet-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes overlay-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}

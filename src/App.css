@@ -1,0 +1,203 @@
+/* ── Reset & Base ─────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Surface */
+  --bg-primary: #0a0a0a;
+  --bg-radial: radial-gradient(
+    ellipse 80% 50% at 50% -10%,
+    rgba(139, 92, 246, 0.08) 0%,
+    transparent 70%
+  );
+
+  /* Accent */
+  --accent-start: #8b5cf6;
+  --accent-end: #d946ef;
+  --accent-gradient: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+
+  /* Text */
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --text-muted: rgba(255, 255, 255, 0.3);
+
+  /* Font */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
+}
+
+/* ── App Shell ───────────────────────────────────────────────────── */
+
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  background: var(--bg-radial);
+}
+
+/* ── Header ──────────────────────────────────────────────────────── */
+
+.app__header {
+  position: absolute;
+  top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.app__logo {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app__tagline {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  text-align: center;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+
+.app__footer {
+  position: absolute;
+  bottom: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ── Back button ─────────────────────────────────────────────────── */
+
+.app__back {
+  position: absolute;
+  top: 2.5rem;
+  left: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 10px;
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  z-index: 10;
+}
+
+.app__back:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.app__back:active {
+  transform: scale(0.97);
+}
+
+/* ── Toast layer ─────────────────────────────────────────────────── */
+
+.toast-layer {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.toast-layer > * {
+  pointer-events: auto;
+}
+
+/* ── Bottom-sheet layer (mobile) ─────────────────────────────────── */
+
+.sheet-layer {
+  /* BottomSheet positions itself with position:fixed, so the
+     container just needs to exist in the DOM for aria-live. */
+}
+
+/* ── Background grid (subtle) ────────────────────────────────────── */
+
+.app::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .app {
+    padding: 1.25rem;
+  }
+
+  .app__header {
+    top: 1.25rem;
+  }
+
+  .app__logo {
+    font-size: 1.35rem;
+  }
+
+  .app__tagline {
+    font-size: 0.78rem;
+  }
+
+  .app__footer {
+    bottom: 1rem;
+    font-size: 0.65rem;
+  }
+
+  .app__back {
+    top: 1.25rem;
+    left: 1.25rem;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.7rem;
+  }
+}

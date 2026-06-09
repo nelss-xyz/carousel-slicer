@@ -1,0 +1,95 @@
+/* ── Slice Preview Animation ─────────────────────────────────────── */
+
+.slice-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+/* ── Container ───────────────────────────────────────────────────── */
+
+.slice-preview__container {
+  display: flex;
+  gap: 0;
+  transition: gap 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  perspective: 800px;
+}
+
+.slice-preview__container--split {
+  gap: 10px;
+}
+
+/* ── Individual Slice ────────────────────────────────────────────── */
+
+.slice-preview__slice {
+  border-radius: 6px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Split state — subtle tilt & shadow ──────────────────────────── */
+
+.slice-preview__container--split .slice-preview__slice {
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* 2-post layout */
+.slice-preview__container--split .slice-preview__slice:nth-child(1) {
+  transform: translateY(6px) rotate(-1.2deg);
+}
+
+.slice-preview__container--split .slice-preview__slice:nth-child(2) {
+  transform: translateY(-6px) rotate(1.2deg);
+}
+
+/* 3-post layout — override the 2nd child to center it */
+.slice-preview__container--split.slice-preview__container--three .slice-preview__slice:nth-child(1) {
+  transform: translateY(6px) rotate(-1.5deg);
+}
+
+.slice-preview__container--split.slice-preview__container--three .slice-preview__slice:nth-child(2) {
+  transform: translateY(-4px) rotate(0deg);
+}
+
+.slice-preview__container--split.slice-preview__container--three .slice-preview__slice:nth-child(3) {
+  transform: translateY(6px) rotate(1.5deg);
+}
+
+/* ── Label ───────────────────────────────────────────────────────── */
+
+.slice-preview__label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  animation: fade-in 0.5s ease 0.6s forwards;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .slice-preview__container--split {
+    gap: 6px;
+  }
+
+  .slice-preview__slice {
+    border-radius: 4px;
+  }
+
+  .slice-preview__label {
+    font-size: 0.8rem;
+  }
+}
